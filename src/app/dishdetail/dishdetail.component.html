@@ -30,20 +30,16 @@
   <div fxFlex="40">
     <div fxFlex *ngIf="dish">
       <mat-card>
-        <mat-card-header>
           <mat-card-title>
             <h3>Comments</h3>
           </mat-card-title>
-        </mat-card-header>
 
-        <mat-grid-list>
-          <mat-card-content *ngFor="let com of dish.comments">
-            <p>{{com.comment}} <br>
+        <mat-list *ngFor="let com of dish.comments">
+            <p> {{com.comment}} <br>
               {{com.rating}} Stars<br>
               -- {{com.author}} - {{com.date | date}} <br>
             </p>
-          </mat-card-content>
-        </mat-grid-list>
+        </mat-list>
       </mat-card>
     </div>
   </div>
