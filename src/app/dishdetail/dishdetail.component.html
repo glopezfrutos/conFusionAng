@@ -48,18 +48,26 @@
             -- {{com.author}} - {{com.date | date}} <br>
           </p>
         </mat-list>
+        <mat-list *ngIf="commentForm.status=='VALID'">
+          <p *ngIf="commentForm.value">
+            {{commentForm.value.comment}} <br>
+            {{commentForm.value.rating}} Stars<br>
+            -- {{commentForm.value.author}} - (preview)
+          </p>
+        </mat-list>
+
         <div>
-          <div fxFlex fxFlexOffset="20px" class="form-size">
+          <div fxFlex fxFlexOffset="20px">
             <h3>Send us your comment</h3>
-            <p>{{ commentForm.value | json }} {{ commentForm.status | json }}</p>
-            <form novalidate [formGroup]="commentForm" #cform="ngForm" (ngSubmit)="onSubmit()">
+            <form class="form-size" novalidate [formGroup]="commentForm" #cform="ngForm" (ngSubmit)="onSubmit()">
               <p>
                 <mat-form-field class="full-width">
                   <input matInput formControlName="author" placeholder="Your Name" type="text" required>
                   <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
                 </mat-form-field>
                 <label>Rating: </label>
-                <mat-slider formControlName="rating" thumbLabel min="1" max="5" step="1" value="5" step="1" tickInterval="1"></mat-slider>
+                <mat-slider formControlName="rating" thumbLabel min="1" max="5" step="1" value="5" step="1"
+                            tickInterval="1"></mat-slider>
                 <mat-form-field class="full-width">
                   <textarea matInput formControlName="comment" placeholder="Your comment" rows=12 required></textarea>
                 </mat-form-field>
