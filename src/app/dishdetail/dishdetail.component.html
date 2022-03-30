@@ -58,22 +58,8 @@
                   <input matInput formControlName="author" placeholder="Your Name" type="text" required>
                   <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
                 </mat-form-field>
-
-                <mat-slider
-                  class="example-margin"
-                  [disabled]="disabled"
-                  [invert]="invert"
-                  [max]="max"
-                  [min]="min"
-                  [step]="step"
-                  [thumbLabel]="thumbLabel"
-                  [tickInterval]="getSliderTickInterval()"
-                  [(ngModel)]="value"
-                  [vertical]="vertical"
-                  aria-labelledby="rating">
-                </mat-slider>
-
-
+                <label>Rating: </label>
+                <mat-slider formControlName="rating" thumbLabel min="1" max="5" step="1" value="5" step="1" tickInterval="1"></mat-slider>
                 <mat-form-field class="full-width">
                   <textarea matInput formControlName="comment" placeholder="Your comment" rows=12 required></textarea>
                 </mat-form-field>

@@ -40,19 +40,6 @@ export class DishdetailComponent implements OnInit {
     }
   };
 
-  autoTicks = false;
-  disabled = false;
-  invert = false;
-  max = 100;
-  min = 0;
-  showTicks = false;
-  step = 1;
-  thumbLabel = false;
-  value = 0;
-  vertical = false;
-  tickInterval = 1;
-
-
   constructor(private dishService: DishService,
               private route: ActivatedRoute,
               private location: Location,
@@ -78,7 +65,7 @@ export class DishdetailComponent implements OnInit {
     this.commentForm = this.formBuilder.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       comment: ['', [Validators.required, Validators.minLength(2)]],
-      rating: '',
+      rating: '5',
       date: ''
     });
     this.commentForm.valueChanges
@@ -112,7 +99,7 @@ export class DishdetailComponent implements OnInit {
     this.comment = this.commentForm.value;
     console.log(this.comment);
     this.commentForm.reset({
-      rating: '',
+      rating: '5',
       comment: '',
       author: '',
       date: ''
@@ -127,10 +114,4 @@ export class DishdetailComponent implements OnInit {
     this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
 
-  getSliderTickInterval(): number | 'auto' {
-    if (this.showTicks) {
-      return this.autoTicks ? 'auto' : this.tickInterval;
-    }
-    return 0;
-  }
 }
