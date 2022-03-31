@@ -1,2 +1,2 @@
 cd json-server
-json-server --watch db.json -d 1000
+json-server --watch db.json -d 500
