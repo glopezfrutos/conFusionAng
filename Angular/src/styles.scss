@@ -3,7 +3,7 @@
 @import 'variables';
 @import '../node_modules/font-awesome/scss/font-awesome.scss';
 
-// some basic resets 
+// some basic resets
 $lt-gray: #ddd;
 $background-dark: #512DA8;
 $background-light: #9575CD;
@@ -23,11 +23,11 @@ $divider-color:        #BDBDBD;
 }
 
 
-body { 
-  padding: 0; 
-  margin: 0; 
-  font-family: Roboto, sans-serif; 
-  
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+
 }
 
 .container {
@@ -47,4 +47,11 @@ body {
 
 .flex-spacer {
 flex: 1 1 auto;
+}
+
+.highlight {
+  background-color: $background-pale;
+  border: 1px solid $primary-color-dark;
+  z-index: 1;
+  transform: scale(1.01);
 }
