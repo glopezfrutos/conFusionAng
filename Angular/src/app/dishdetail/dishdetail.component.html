@@ -6,7 +6,7 @@
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
 
-  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility">
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility"  [@expand]>
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -31,7 +31,7 @@
     </mat-card>
   </div>
 
-  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility">
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility"  [@expand]>
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -45,7 +45,7 @@
           -- {{com.author}} - {{com.date | date}} <br>
         </p>
       </mat-list>
-      <mat-list *ngIf="commentForm.status=='VALID'">
+      <mat-list *ngIf="commentForm.status=='VALID'"  [@expand]>
         <p *ngIf="commentForm.value">
           {{commentForm.value.comment}} <br>
           {{commentForm.value.rating}} Stars<br>
