@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Feedback, ContactType} from '../shared/feedback';
-import {flyInOut} from '../animations/app.animation';
+import {flyInOut, expand} from '../animations/app.animation';
+import {FeedbackService} from '../services/feedback.service';
 
 
 @Component({
@@ -13,7 +14,10 @@ import {flyInOut} from '../animations/app.animation';
     '[@flyInOut]': 'true',
     'style': 'display: block;'
   },
-  animations: [flyInOut()]
+  animations: [
+    flyInOut(),
+    expand()
+  ]
 })
 export class ContactComponent implements OnInit {
 
@@ -21,7 +25,11 @@ export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
+  feedbackAnswer: Feedback;
+  loading: boolean;
+  checking: boolean;
   contactType = ContactType;
+  errMess: string;
 
   formErrors = {
     'firstname': '',
@@ -51,7 +59,9 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private submitfb: FeedbackService,
+              private formBuilder: FormBuilder,
+              @Inject('BaseURL') private BaseURL) {
     this.createForm();
   }
 
@@ -59,7 +69,7 @@ export class ContactComponent implements OnInit {
   }
 
   createForm() {
-    this.feedbackForm = this.fb.group({
+    this.feedbackForm = this.formBuilder.group({
       firstname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       telnum: ['', [Validators.required, Validators.pattern]],
@@ -99,6 +109,19 @@ export class ContactComponent implements OnInit {
 
   onSubmit() {
     this.feedback = this.feedbackForm.value;
+    this.loading = true;
+    this.submitfb.submitFeedback(this.feedbackForm.value)
+      .subscribe(feedback => {
+          this.feedback = feedback;
+          this.loading = false;
+          this.feedbackAnswer = feedback;
+          this.checking = true;
+          setTimeout(() => this.checking = false, 5000);
+        },
+        errmess => {
+          this.feedback = null;
+          this.errMess = <any>errmess;
+        });
     console.log(this.feedback);
     this.feedbackForm.reset({
       firstname: '',
@@ -110,5 +133,6 @@ export class ContactComponent implements OnInit {
       message: ''
     });
     this.feedbackFormDirective.resetForm();
+    this.feedbackAnswer = null;
   }
 }
